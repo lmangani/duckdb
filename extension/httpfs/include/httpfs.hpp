@@ -42,7 +42,7 @@ struct HTTPParams {
 	static constexpr uint64_t DEFAULT_RETRY_WAIT_MS = 100;
 	static constexpr float DEFAULT_RETRY_BACKOFF = 4;
 	static constexpr bool DEFAULT_FORCE_DOWNLOAD = false;
-        static constexpr bool DEFAULT_ENABLE_WRITE = false;
+	static constexpr bool DEFAULT_ENABLE_WRITE = false;
 	static constexpr bool DEFAULT_KEEP_ALIVE = true;
 	static constexpr bool DEFAULT_ENABLE_SERVER_CERT_VERIFICATION = false;
 	static constexpr uint64_t DEFAULT_HF_MAX_PER_PAGE = 0;

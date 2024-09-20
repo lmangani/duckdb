@@ -41,7 +41,7 @@ static void LoadInternal(DatabaseInstance &instance) {
 	                          LogicalType::VARCHAR, Value(""));
 	// Experimental HTTPFS write
 	config.AddExtensionOption("enable_write", "Enable HTTPFS POST write", LogicalType::BOOLEAN, Value(true));
-	
+
 	// Global S3 config
 	config.AddExtensionOption("s3_region", "S3 Region", LogicalType::VARCHAR, Value("us-east-1"));
 	config.AddExtensionOption("s3_access_key_id", "S3 Access Key ID", LogicalType::VARCHAR);

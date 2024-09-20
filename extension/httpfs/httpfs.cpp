@@ -579,7 +579,7 @@ void HTTPFileSystem::Write(FileHandle &handle, void *buffer, int64_t nr_bytes, i
 	if (!http_params.enable_write) {
 		throw NotImplementedException("Writing to HTTP files not enabled.");
 	}
-	
+
 	auto &hfh = handle.Cast<HTTPFileHandle>(); // Get HTTP file handle
 
 	// BUG: empty requests get fired after a successful post. Ensure the buffer is non-empty and larger than 1
