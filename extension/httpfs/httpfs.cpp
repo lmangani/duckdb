@@ -59,6 +59,7 @@ HTTPParams HTTPParams::ReadFrom(optional_ptr<FileOpener> opener, optional_ptr<Fi
 	                                 info);
 	FileOpener::TryGetCurrentSetting(opener, "ca_cert_file", result.ca_cert_file, info);
 	FileOpener::TryGetCurrentSetting(opener, "hf_max_per_page", result.hf_max_per_page, info);
+	FileOpener::TryGetCurrentSetting(opener, "enable_write", result.enable_write, info);
 
 	// HTTP Secret lookups
 	KeyValueSecretReader settings_reader(*opener, info, "http");
@@ -420,7 +421,7 @@ unique_ptr<ResponseWrapper> HTTPFileSystem::GetRangeRequest(FileHandle &handle, 
 					    // behaviour, so we have to improve logic elsewhere to properly handle this case.
 
 					    // To avoid corruption of memory, we bail out.
-					    throw IOException("Server sent back more data than expected, `SET force_download=true` might "
+					    throw IOException("Server sent back more data than expected, `SET =true` might "
 					                      "help in this case");
 				    }
 				    memcpy(buffer_out + out_offset, data, data_length);
@@ -574,6 +575,11 @@ int64_t HTTPFileSystem::Read(FileHandle &handle, void *buffer, int64_t nr_bytes)
 }
 
 void HTTPFileSystem::Write(FileHandle &handle, void *buffer, int64_t nr_bytes, idx_t location) {
+
+	if (!http_params.enable_write) {
+		throw NotImplementedException("Writing to HTTP files not enabled.");
+	}
+	
 	auto &hfh = handle.Cast<HTTPFileHandle>(); // Get HTTP file handle
 
 	// BUG: empty requests get fired after a successful post. Ensure the buffer is non-empty and larger than 1
