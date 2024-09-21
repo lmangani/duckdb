@@ -421,7 +421,7 @@ unique_ptr<ResponseWrapper> HTTPFileSystem::GetRangeRequest(FileHandle &handle, 
 					    // behaviour, so we have to improve logic elsewhere to properly handle this case.
 
 					    // To avoid corruption of memory, we bail out.
-					    throw IOException("Server sent back more data than expected, `SET =true` might "
+					    throw IOException("Server sent back more data than expected, `SET force_download=true` might "
 					                      "help in this case");
 				    }
 				    memcpy(buffer_out + out_offset, data, data_length);
