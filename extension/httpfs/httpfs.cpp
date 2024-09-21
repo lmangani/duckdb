@@ -575,7 +575,6 @@ int64_t HTTPFileSystem::Read(FileHandle &handle, void *buffer, int64_t nr_bytes)
 }
 
 void HTTPFileSystem::Write(FileHandle &handle, void *buffer, int64_t nr_bytes, idx_t location) {
-
 	auto &hfh = handle.Cast<HTTPFileHandle>(); // Get HTTP file handle
 
 	if (!hfh.http_params.enable_write) {
